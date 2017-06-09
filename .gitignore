@@ -110,3 +110,6 @@ $RECYCLE.BIN/
 # Others
 lib/
 data/
+
+#do not commit sensitive keys stored here
+config/local.json
