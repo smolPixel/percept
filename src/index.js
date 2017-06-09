@@ -11,3 +11,4 @@ process.on('unhandledRejection', (reason, p) =>
 server.on('listening', () =>
   logger.info(`Feathers application started on ${app.get('host')}:${port}`)
 );
+ 

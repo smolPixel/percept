@@ -5,6 +5,12 @@ const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 
+
+//our custom things
+const auth = require('feathers-authentication');
+const routes = require('../routes');
+const views = require('../views');
+
 const feathers = require('feathers');
 const configuration = require('feathers-configuration');
 const hooks = require('feathers-hooks');
@@ -30,6 +36,10 @@ app.use(compress());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
+
+
+
+
 // Host the public folder
 app.use('/', feathers.static(app.get('public')));
 
@@ -43,6 +53,9 @@ app.configure(authentication);
 
 // Set up our services (see `services/index.js`)
 app.configure(services);
+
+
+
 // Configure middleware (see `middleware/index.js`) - always has to be last
 app.configure(middleware);
 app.hooks(appHooks);
