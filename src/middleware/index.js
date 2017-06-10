@@ -4,6 +4,7 @@ const auth = require('feathers-authentication');
 
 var router = require('../../routes');
 
+
 module.exports = function () {
   // Add your custom middleware here. Remember, that
   // in Express the order matters, `notFound` and
