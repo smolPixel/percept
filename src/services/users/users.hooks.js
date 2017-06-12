@@ -3,6 +3,9 @@ const commonHooks = require('feathers-hooks-common');
 const { restrictToOwner } = require('feathers-authentication-hooks');
 
 const { hashPassword } = require('feathers-authentication-local').hooks;
+
+const setEmailOAuth = require("../../hooks/fetch-email-o-auth");
+
 const restrict = [
   authenticate('jwt'),
   restrictToOwner({
@@ -16,7 +19,7 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ ...restrict ],
-    create: [ hashPassword() ],
+    create: [ hashPassword(), setEmailOAuth()],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
     remove: [ ...restrict ]

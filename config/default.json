@@ -36,7 +36,8 @@
       "successRedirect": "/",
       "scope": [
         "profile openid email"
-      ]
+      ],
+      "profileFields": ["id", "displayName", "photos", "email"]
     },
     "facebook": {
       "clientID": "your facebook client id",

@@ -5,6 +5,8 @@ const oauth2 = require('feathers-authentication-oauth2');
 const GoogleStrategy = require('passport-google-oauth20');
 const FacebookStrategy = require('passport-facebook');
 
+//TODO: configure auth the right way!
+
 module.exports = function () {
   const app = this;
   const config = app.get('authentication');
