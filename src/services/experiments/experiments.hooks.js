@@ -1,5 +1,7 @@
 const { authenticate } = require('feathers-authentication').hooks;
 
+const setTimeline = require('../../hooks/set-timeline');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -7,9 +9,7 @@ module.exports = {
     get: [],
     create: [],
     update: [],
-    patch: [function(hook){
-      var test = "we're here!";
-    }],
+    patch: [],
     remove: []
   },
 
@@ -18,7 +18,7 @@ module.exports = {
     find: [],
     get: [],
     create: [],
-    update: [],
+    update: [setTimeline()],
     patch: [],
     remove: []
   },
