@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 //our custom things
 const auth = require('feathers-authentication');
 const routes = require('../routes');
-const views = require('../views');
 
 const feathers = require('feathers');
 const configuration = require('feathers-configuration');
@@ -41,7 +40,7 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 
 
 // Host the public folder
-app.use('/', feathers.static(app.get('public')));
+app.use('/static', feathers.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(hooks());

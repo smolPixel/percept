@@ -35,6 +35,13 @@ module.exports = function () {
       remove: [
         authentication.hooks.authenticate('jwt')
       ]
+    },
+    after:{
+      create:[
+        function(hook){
+          var test = 'test';
+        }
+      ]
     }
   });
 };
