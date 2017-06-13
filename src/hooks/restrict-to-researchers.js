@@ -12,8 +12,9 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     }
 
     if(hook.params.user){
-      //retrieve the experiment concerned, no need to populate
+      if(hook.type === "after"){
 
+      }
       function restrict(exp){
         if(! exp.researchers.includes(hook.params.user.id)){
           throw new Error("Viewing experimental data is restricted to the research team");
