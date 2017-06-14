@@ -12,8 +12,19 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     }
 
     if(hook.params.user){
-      if(hook.type === "after"){
-
+      const mongooseClient = hook.app.get("mongooseClient");
+      if(hook.type === "after" && hook.method === "get"){
+        return new Promise(function(resolve, reject){
+          mongooseClient.model('experiments').findByID(hook.result.experiment, function(err, exp){
+            if(err) reject(err);
+            if(!exp.researchers.includes(hook.params.user._id)){
+              reject("not allowed to view this participation")
+            }
+            else{
+              resolve(hook);
+            }
+          })
+        })
       }
       function restrict(exp){
         if(! exp.researchers.includes(hook.params.user.id)){
