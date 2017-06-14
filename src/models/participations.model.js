@@ -18,9 +18,10 @@ module.exports = function (app) {
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 
-    sessions:     [SessionSchema],
+    data:     [SessionSchema],
 
-    isDropout: {type: Boolean, required:true, default: true}
+    isDropout:  {type: Boolean, required:true, default: true},
+    isClosed:   {type: Boolean, required:true, default:false}
   });
 
   return mongooseClient.model('participations', participations);

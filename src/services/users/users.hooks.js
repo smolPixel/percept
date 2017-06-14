@@ -19,7 +19,7 @@ module.exports = {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ ...restrict ],
-    create: [ hashPassword(), setEmailOAuth()],
+    create: [ hashPassword(), setEmailOAuth(), commonHooks.discard("_id")],
     update: [ ...restrict, hashPassword() ],
     patch: [ ...restrict, hashPassword() ],
     remove: [ ...restrict ]

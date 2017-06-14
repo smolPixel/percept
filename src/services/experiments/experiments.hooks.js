@@ -2,7 +2,7 @@ const { authenticate } = require('feathers-authentication').hooks;
 
 const setTimeline = require('../../hooks/set-timeline');
 
-const replaceEmailWithId = require('../../hooks/replace-email-with-id');
+const replaceEmailWithId = require('../../hooks/replace-field-with-id');
 
 module.exports = {
   before: {

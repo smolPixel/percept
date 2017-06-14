@@ -27,7 +27,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
       if(hook.method === 'get'){
         var subjectID =  hook.params.user._id.toString();
-        return hook.app.service('/participations').get({subject: subjectID}, function(exp){
+        return hook.app.service('/participations').find({subject: subjectID}, function(exp){
           
           return restrict(exp);
         });

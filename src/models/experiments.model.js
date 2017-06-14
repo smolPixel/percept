@@ -25,7 +25,8 @@ module.exports = function (app) {
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     isActive: {type: Boolean, default: false },
-    timeline: [BlockSchema]
+    timeline: [BlockSchema],
+    extraParams : { type: String }
   });
 
   return mongooseClient.model('experiments', experiments);
