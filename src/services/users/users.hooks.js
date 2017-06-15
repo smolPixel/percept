@@ -14,6 +14,8 @@ const restrict = [
   })
 ];
 
+const populateTheirExperiments = require('../../hooks/populate-their-experiments');
+
 module.exports = {
   before: {
     all: [],
@@ -33,7 +35,7 @@ module.exports = {
       )
     ],
     find: [],
-    get: [],
+    get: [populateTheirExperiments()],
     create: [],
     update: [],
     patch: [],

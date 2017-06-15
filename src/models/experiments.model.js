@@ -29,5 +29,8 @@ module.exports = function (app) {
     extraParams : { type: String }
   });
 
+  //adding an index on the "researchers" array so that we can quickly find experiments by researcher name
+  experiments.index
+
   return mongooseClient.model('experiments', experiments);
 };

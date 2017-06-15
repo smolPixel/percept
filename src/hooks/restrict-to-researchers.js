@@ -13,11 +13,13 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
 
     if(hook.params.user){
       const mongooseClient = hook.app.get("mongooseClient");
+      //check if we are in an after hook for a single Participation request
       if(hook.type === "after" && hook.method === "get"){
+        //we just need to query the related experiment,
         return new Promise(function(resolve, reject){
-          mongooseClient.model('experiments').findByID(hook.result.experiment, function(err, exp){
+          mongooseClient.model('experiments').find({_id: hook.result.experiment, researchers: hook.params.user._id}, function(err, exp){
             if(err) reject(err);
-            if(!exp.researchers.includes(hook.params.user._id)){
+            if(!exp){
               reject("not allowed to view this participation")
             }
             else{
@@ -26,32 +28,24 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
           })
         })
       }
-      function restrict(exp){
-        if(! exp.researchers.includes(hook.params.user.id)){
-          throw new Error("Viewing experimental data is restricted to the research team");
-        }
-        else{
-          hook.result = exp
-          return hook;
-        }
-      }
-
-      if(hook.method === 'get'){
-        var subjectID =  hook.params.user._id.toString();
-        return hook.app.service('/participations').find({subject: subjectID}, function(exp){
-          
-          return restrict(exp);
+      else if(hook.type = "before" && hook.method === 'find'){
+        return new Promise(function(resolve, reject){
+          mongooseClient.model("experiments").find({label:hook.query.label, researchers:hook.params.user._id}, function(err, exp){
+            if(err) reject(err);
+            if(!exp){
+              reject("You do not have permission to view data for this experiment");
+            }
+            resolve(hook)
+          })
         });
+        
       }
-      else if(hook.method ==='find'){
-        return hook.app.service('/experiments').find({label: hook.params.query.label}, function(exp){
-          return restrict(exp);
-        });
+      else {
+        throw new Error("This hook must be an after-get or a before-find hook");
       }
-      
     }
     else{
-      throw new Error("You must be authenticated to use this endpoint.")
+      throw new Error("You must be authenticated to use this endpoint.");
     }
   };
 };
