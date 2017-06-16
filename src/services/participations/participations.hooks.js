@@ -9,22 +9,21 @@ const restrictToResearchers = require('../../hooks/restrict-to-researchers');
 const addSettings = require('../../hooks/add-settings');
 const replaceWithID = require('../../hooks/replace-field-with-id')
 
+const populateParticipation = require('../../hooks/populate-participation');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt')],
-    find: [
-      enforceQueryParam(), 
-      restrictToResearchers()
-    ],
-    get: [restrictToResearchers()],
-    create: [associateCurrentUser({as:'subject'}), replaceWithID({replacedField:'experiment', targetModel:'experiments', uniqueField:'label'})],
+    find: [],
+    get: [populateParticipation()],
+    create: [associateCurrentUser({as:'subjectId'}), replaceWithID({replacedQueryField:'experiment', targetModel:'experiments', uniqueField:'label', targetField:'experimentId'})],
     update: [
       disableMultiItemChange(),
-      restrictToOwner({ownerField:'subject'})
+      restrictToOwner({ownerField:'subjectId'})
     ],
     patch: [
       disableMultiItemChange(),
-      restrictToOwner({ownerField:'subject'}),
+      restrictToOwner({ownerField:'subjectId'}),
       disallow('external')
     ],
     remove: [disallow('external')]
@@ -32,11 +31,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [populateParticipation()],
     get: [],
     create: [
-      pluck("_id", "data", "experiment" ), 
-      addSettings()
+      addSettings(),
+      pluck("_id", "data", "experiment" )
       ],
     update: [],
     patch: [],

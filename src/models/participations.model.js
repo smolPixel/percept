@@ -12,8 +12,8 @@ module.exports = function (app) {
 
 
   const participations = new mongooseClient.Schema({
-    experiment: { type: Schema.Types.ObjectId, ref:'experiments', required: true },
-    subject:    {type: Schema.Types.ObjectId, ref:'users', required: true},
+    experimentId: { type: Schema.Types.ObjectId, ref:'experiments', required: true, index:true },
+    subjectId:    {type: Schema.Types.ObjectId, ref:'users', required: true, index:true},
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },

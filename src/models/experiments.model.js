@@ -20,7 +20,7 @@ module.exports = function (app) {
     //The user responsible for this experiment
     leadResearcher:{type: Schema.Types.ObjectId, ref: 'users', required:true},
     //other accounts allowed to view and edit, but not add others
-    researchers:[{type: Schema.Types.ObjectId, ref: 'users'}],
+    researchers:{type: [Schema.Types.ObjectId], ref: 'users', index:true},
 
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
@@ -30,7 +30,6 @@ module.exports = function (app) {
   });
 
   //adding an index on the "researchers" array so that we can quickly find experiments by researcher name
-  experiments.index
 
   return mongooseClient.model('experiments', experiments);
 };

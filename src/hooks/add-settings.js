@@ -1,7 +1,7 @@
 // Use this hook to manipulate incoming or outgoing data.
 // For more information on hooks see: http://docs.feathersjs.com/api/hooks.html
 
-module.exports = function (options = {expField:"experiment"}) { // eslint-disable-line no-unused-vars
+module.exports = function (options = {expField:"experimentId"}) { // eslint-disable-line no-unused-vars
   /**
    * After hook meant to be used just after Participation creation (when a participant request to start an experiment).
    * Attaches the experimental timeline and other settigns to the response, so that they can immediately run jsPsych.init() with it!
