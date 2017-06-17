@@ -17,11 +17,11 @@ module.exports = {
     all: [ authenticate('jwt')],
     find: [],
     get: [populateParticipation()],
-    create: [associateCurrentUser({as:'subjectId'}), replaceWithID({replacedQueryField:'experiment', targetModel:'experiments', uniqueField:'label', targetField:'experimentId'})],
+    create: [associateCurrentUser({as:'subjectId'}), pluck('subjectId', 'experiment'), replaceWithID({replacedQueryField:'experiment', targetModel:'experiments', uniqueField:'label', targetField:'experimentId'})],
     update: [
       disableMultiItemChange(),
       restrictToOwner({ownerField:'subjectId'}),
-      validateSchema(participationUpdateSchema, )
+      validateSchema(participationUpdateSchema, Ajv)
     ],
     patch: [
       disableMultiItemChange(),
