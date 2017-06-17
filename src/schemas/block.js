@@ -11,7 +11,7 @@ module.exports = function(app){             //Is this what they call dependency 
     });                                     //with a single Schema. We will add massive validation to offset the risks this presents.
 
 
-    Block.add({timeline: [Block] });         //Blocks are recursive through their timeline property, just like in jsPsych
+    Block.add({timeline: {type: [Block], default: undefined} });         //Blocks are recursive through their timeline property, just like in jsPsych
 
 
     Block.pre('validate', function(next){

@@ -1,6 +1,6 @@
 const { authenticate } = require('feathers-authentication').hooks;
 const {queryWithCurrentUser, associateCurrentUser, restrictToOwner} = require("feathers-authentication-hooks");
-var {disallow, disableMultiItemChange, pluck, populate, validateSchema} = require('feathers-hooks-common');
+var {disallow, disableMultiItemChange, pluck, populate, validateSchema, discard} = require('feathers-hooks-common');
 const Ajv = require('ajv');
 const enforceQueryParam = require('../../hooks/enforce-query-param');
 
@@ -37,7 +37,8 @@ module.exports = {
     get: [],
     create: [
       addSettings(),
-      pluck("_id", "data", "experiment" )
+      discard("timeline._id"),
+      pluck("_id", "data", "experiment", "timeline" )
       ],
     update: [],
     patch: [],

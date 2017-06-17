@@ -23,7 +23,7 @@ module.exports = function (options = {uniqueField:'email', targetModel:'users', 
             reject(err);
           }
           if(!user){
-            reject(new Error("Provided email: "+ hook.data[options.replacedQueryField] + " for leadResearcher did not match any user"));
+            reject(new Error("No '"+ options.targetModel + "' instance found matching "+ options.replacedQueryField+" = "+hook.data[options.uniqueField]));
           }
           else{
             hook.data[options.targetField] = user._id;

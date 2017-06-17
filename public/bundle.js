@@ -4633,7 +4633,7 @@ class Percept {
     }
 
     function start(app) {
-      app.services('participations').create({ experiment: opts.label }).catch(err => {
+      app.service('participations').create({ experiment: opts.label }).catch(err => {
         alert(err); //just echo the error for now
       }).then(resp => {
 
@@ -15371,7 +15371,7 @@ $(function () {
 
     var percept = new __WEBPACK_IMPORTED_MODULE_5__public_percept_index__["a" /* Percept */]({ app: app });
 
-    percept.doExperiment({ label: 'testexp' });
+    percept.doExperiment({ label: 'secondexp' });
 });
 
 /***/ }),
