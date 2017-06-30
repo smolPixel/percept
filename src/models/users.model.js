@@ -15,7 +15,7 @@ module.exports = function (app) {
     facebookId: { type: String },
   
     createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now }
+    updatedAt: { type: Date, default: Date.now },
   });
 
   return mongooseClient.model('users', users);

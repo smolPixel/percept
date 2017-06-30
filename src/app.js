@@ -34,13 +34,15 @@ app.use(helmet());
 app.use(compress());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
-
+app.use(favicon(path.join('../public', 'favicon.ico')));
+//mm chose que plus bas pas sur pourquoi c'etait path.join(app.get([...])) 
 
 
 
 // Host the public folder
-app.use('/static', feathers.static(app.get('public')));
+app.use('/static', feathers.static(__dirname + 'public'));
+//Fred: feather.static(app.get('public')) ne fonctionnait pas, et j'ai de la misere a voir pourquoi
+//on utiliserais app.get avec feathers.static :/
 
 // Set up Plugins and providers
 app.configure(hooks());

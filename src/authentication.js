@@ -12,19 +12,27 @@ module.exports = function () {
   const config = app.get('authentication');
 
   // Set up authentication with the secret
-  app.configure(authentication(config));
+  //authentication(config) wasnt working
+  app.configure(authentication({secret:'ffff'}));
   app.configure(jwt());
-  app.configure(local(config.local));
+  //app.configure(config.local(config.local)) wasnt working
+  app.configure(local);
 
+//{, config.google wasnt working
   app.configure(oauth2(Object.assign({
     name: 'google',
+    clientID: '1234',
+    clientSecret: '1234',
     Strategy: GoogleStrategy
-  }, config.google)));
+  })));
 
+//}, config.facebook wasnt working
   app.configure(oauth2(Object.assign({
     name: 'facebook',
+    clientID: '1234',
+    clientSecret: '1234',
     Strategy: FacebookStrategy
-  }, config.facebook)));
+  })));
 
   // The `authentication` service is used to create a JWT.
   // The before `create` hook registers strategies that can be used
@@ -32,7 +40,7 @@ module.exports = function () {
   app.service('authentication').hooks({
     before: {
       create: [
-        authentication.hooks.authenticate(config.strategies)
+        authentication.hooks.authenticate(['local'])
       ],
       remove: [
         authentication.hooks.authenticate('jwt')
